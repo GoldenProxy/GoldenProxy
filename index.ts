@@ -5,4 +5,11 @@ type m = {
 
 let str: m | null = { msg: 'Hello, World!' }
 
-console.log(str?.msg)
+import logger from './src/Logger'
+
+const log = new logger('Golden')
+
+log.info('Hello, World!')
+log.warn('Hello, World!')
+log.error('Hello, World!')
+log.success('Hello, World!')
