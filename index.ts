@@ -1,9 +1,9 @@
 import logger from './src/Logger'
+import GoldenProxy from './src/proxy'
 
 
 const log = new logger('Golden')
 
-log.info('Hello, World!')
-log.warn('Hello, World!')
-log.error('Hello, World!')
-log.success('Hello, World!')
+log.info('Starting Golden...')
+
+const proxy = new GoldenProxy()
