@@ -1,0 +1,25 @@
+{
+  "name": "goldenproxy",
+  "version": "1.0.0",
+  "description": "An open source and customisable multi purpose Minecraft proxy ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoldenProxy/GoldenProxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "minecraft",
+    "hypixel",
+    "plugin"
+  ],
+  "author": "GoldenProxy Contributors",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/GoldenProxy/GoldenProxy/issues"
+  },
+  "homepage": "https://github.com/GoldenProxy/GoldenProxy#readme"
+}
