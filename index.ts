@@ -1,11 +1,5 @@
-type m = {
-    msg: String
-}
-
-
-let str: m | null = { msg: 'Hello, World!' }
-
 import logger from './src/Logger'
+
 
 const log = new logger('Golden')
 
