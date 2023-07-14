@@ -4,7 +4,10 @@
   "description": "An open source and customisable multi purpose Minecraft proxy ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "npm install && npm install -g typescript ts-node sass",
+    "dev": "ts-node .",
+    "build": "tsc ./*.ts"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,12 @@
   "bugs": {
     "url": "https://github.com/GoldenProxy/GoldenProxy/issues"
   },
-  "homepage": "https://github.com/GoldenProxy/GoldenProxy#readme"
+  "homepage": "https://github.com/GoldenProxy/GoldenProxy#readme",
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "typescript": "^5.1.6"
+  }
 }
