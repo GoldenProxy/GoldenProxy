@@ -12,6 +12,7 @@ export default class GoldenProxy {
 
     disabledPackets: Array<string> = []
     packets: Array<string> = []
+    full_packets: Array<Object> = []
 
     config: Config
     logger: LoggerType
@@ -27,30 +28,7 @@ export default class GoldenProxy {
 
         this.server.on('listening', this.server$listening.bind(this))
         //this.server.on('login', this.server$login.bind(this))
-        this.server.on('login', (client: mc.Client) => {
-            this.logger.success(`${client.username} has joined the server!`)
-
-            var remoteClient = mc.createClient({
-                auth: 'microsoft',
-                username: client.username,
-                host: this.config.server_host,
-                port: this.config.server_port,
-                version: this.config.server_version,
-            })
-
-            remoteClient.on('connect', () => {
-                this.logger.success(`Connected to ${this.config.server_host}:${this.config.server_port}`)
-            })
-
-            remoteClient.on('packet', (packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer) => {
-                this.remote$packet(packet, packetMeta, buffer, fullBuffer, remoteClient)
-            })
-
-            client.on('packet', (packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer) => {
-                this.logger.info(packetMeta.name)
-                this.client$packet(packet, packetMeta, buffer, fullBuffer, client)
-            })
-        })
+        this.server.on('login', (client: mc.Client) => this.server$login(client))        
         
     }
 
@@ -74,21 +52,26 @@ export default class GoldenProxy {
         })
 
         remoteClient.on('packet', (packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer) => {
-            this.remote$packet(packet, packetMeta, buffer, fullBuffer, remoteClient)
+            this.remote$packet(packet, packetMeta, buffer, fullBuffer, client)
         })
 
         client.on('packet', (packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer) => {
-            this.client$packet(packet, packetMeta, buffer, fullBuffer, client)
+            //if (!['transaction','flying','keep_alive'].includes(packetMeta.name)) this.logger.info(packetMeta.name);
+            this.client$packet(packet, packetMeta, buffer, fullBuffer, remoteClient)
         })
-
-
-
     }
 
     remote$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, client: mc.Client) {
-        if (!this.packets.includes(packetMeta.name)) this.packets.push(packetMeta.name)
+        if (!this.packets.includes(packetMeta.name)) {
+            this.packets.push(packetMeta.name)
+            this.full_packets.push(packetMeta)
+
+
+        }
+
+
         if (packetMeta.name == "custom_payload") {
-            console.log(packet)
+//             console.log(packet)
             if (["FML|HS", "REGISTER", "MC|Brand", "badlion:mods"]) return; // Block
         }
 
@@ -98,7 +81,12 @@ export default class GoldenProxy {
     }
 
     client$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, client: mc.Client) {
-        if(!this.packets.includes(packetMeta.name)) this.packets.push(packetMeta.name)
+        if (!this.packets.includes(packetMeta.name)) {
+            this.packets.push(packetMeta.name)
+            this.full_packets.push(packetMeta)
+
+
+        }
 
         if (packetMeta.name == "chat") {
             if (packet.message.startsWith(".")) {
