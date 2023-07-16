@@ -40,6 +40,11 @@ export default class /* Logger */ {
 
         const formatted_date = strftime(this.time_format, new Date())
 
+        if (process.stdout.columns && process.stdout.columns > 0) 
+            process.stdout.moveCursor(-2, 0)
+        
+        
+
         console.log(
             `${this.time_colour(formatted_date)} ` + 
             `${type_colour(type.toUpperCase())}${" ".repeat(5 - type.length + 4)}` +

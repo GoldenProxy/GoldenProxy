@@ -1,4 +1,11 @@
 .DS_Store
+
 *.js
 !strftime.js
+!scripts/*.js
+
 node_modules/
+.vscode/
+scripts/*.txt
+
+config.json

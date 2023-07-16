@@ -2,7 +2,6 @@
   "name": "goldenproxy",
   "version": "1.0.0",
   "description": "An open source and customisable multi purpose Minecraft proxy ",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "npm install && npm install -g typescript ts-node sass",
@@ -27,6 +26,9 @@
   "homepage": "https://github.com/GoldenProxy/GoldenProxy#readme",
   "dependencies": {
     "chalk": "^4.1.2",
+    "minecraft-data": "^3.40.0",
+    "minecraft-protocol": "^1.43.1",
+    "msal-code": "^1.0.0",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
