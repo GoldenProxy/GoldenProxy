@@ -64,7 +64,7 @@ export default class GoldenProxy {
     remote$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, client: mc.Client) {
         if (!this.packets.includes(packetMeta.name)) {
             this.packets.push(packetMeta.name)
-            this.full_packets.push(packetMeta)
+            this.full_packets.push(packet)
 
 
         }
@@ -83,7 +83,7 @@ export default class GoldenProxy {
     client$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, client: mc.Client) {
         if (!this.packets.includes(packetMeta.name)) {
             this.packets.push(packetMeta.name)
-            this.full_packets.push(packetMeta)
+            this.full_packets.push(packet)
 
 
         }
