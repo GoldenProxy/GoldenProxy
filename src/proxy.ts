@@ -3,9 +3,6 @@ import Config from './Config'
 
 import mc from 'minecraft-protocol'
 import data from 'minecraft-data'
-import msal from 'msal-code'
-import net from 'net'
-
 
 export default class GoldenProxy {
     server: mc.Server
@@ -57,7 +54,7 @@ export default class GoldenProxy {
 
         client.on('packet', (packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer) => {
             //if (!['transaction','flying','keep_alive'].includes(packetMeta.name)) this.logger.info(packetMeta.name);
-            this.client$packet(packet, packetMeta, buffer, fullBuffer, remoteClient)
+            this.client$packet(packet, packetMeta, buffer, fullBuffer, remoteClient, client)
         })
     }
 
@@ -80,7 +77,7 @@ export default class GoldenProxy {
         if (!this.disabledPackets.includes(packetMeta.name)) client.write(packetMeta.name, packet)
     }
 
-    client$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, client: mc.Client) {
+    client$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, remoteClient: mc.Client, client: mc.Client) {
         if (!this.packets.includes(packetMeta.name)) {
             this.packets.push(packetMeta.name)
             this.full_packets.push(packet)
@@ -101,7 +98,7 @@ export default class GoldenProxy {
             }
         }
 
-        if(!this.disabledPackets.includes(packetMeta.name)) client.write(packetMeta.name, packet)
+        if(!this.disabledPackets.includes(packetMeta.name)) remoteClient.write(packetMeta.name, packet)
     }
 
 
