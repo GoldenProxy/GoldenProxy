@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "npm install && npm install -g typescript ts-node sass",
     "dev": "ts-node .",
-    "build": "tsc ./*.ts"
+    "build": "tsc ./*.ts",
+    "nmp_cache_clear": "py -c \"import os, shutil; appdata=os.getenv('APPDATA'); [os.remove(os.path.join(appdata, '.minecraft', 'nmp-cache', i)) for i in os.listdir(os.path.join(appdata, '.minecraft', 'nmp-cache'))];"
   },
   "repository": {
     "type": "git",

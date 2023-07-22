@@ -1,5 +1,6 @@
 import LoggerType from './Logger'
 import Config from './Config'
+import { mcmotd, CLIENT_CHANNELS } from './consts'
 
 import mc from 'minecraft-protocol'
 import data from 'minecraft-data'
@@ -21,7 +22,9 @@ export default class GoldenProxy {
         this.server = mc.createServer({
             port: this.config.connection_port,
             version: this.config.connection_version,
+            motd: mcmotd + this.config.server_host + ':' + this.config.server_port,
         })
+        
 
         this.server.on('listening', this.server$listening.bind(this))
         //this.server.on('login', this.server$login.bind(this))
@@ -68,9 +71,9 @@ export default class GoldenProxy {
 
 
         if (packetMeta.name == "custom_payload") {
-//             console.log(packet)
-            if (["FML|HS", "REGISTER", "MC|Brand", "badlion:mods"]) return; // Block
+            if (CLIENT_CHANNELS.includes(packet.channel)) return;
         }
+        
 
         if (packetMeta.state !== mc.states.PLAY) return;
 
