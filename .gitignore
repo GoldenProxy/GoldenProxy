@@ -1,7 +1,6 @@
 .DS_Store
 
 *.js
-!strftime.js
 !scripts/*.js
 !plugins/**/*.js
 
