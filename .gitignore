@@ -3,6 +3,7 @@
 *.js
 !strftime.js
 !scripts/*.js
+!plugins/**/*.js
 
 node_modules/
 .vscode/

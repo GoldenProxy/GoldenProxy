@@ -6,13 +6,13 @@ import { strftime } from '../strftime';
     */
 
 export default class /* Logger */ {
-    time_colour: chalk.Chalk = chalk.gray
+    time_colour: chalk.Chalk | Function = chalk.gray
     time_format: String = '%Y-%m-%d %H:%M:%S'
 
-    info_colour = chalk.blue
-    warn_colour = chalk.yellow
-    error_colour = chalk.redBright
-    success_colour = chalk.green
+    info_colour: chalk.Chalk | Function = chalk.blue
+    warn_colour: chalk.Chalk | Function = chalk.yellow
+    error_colour: chalk.Chalk | Function = chalk.redBright
+    success_colour: chalk.Chalk | Function = chalk.green
 
     
     type_col_dict = {
@@ -22,9 +22,11 @@ export default class /* Logger */ {
         'success': this.success_colour
     }
     
-    name_colour = chalk.magentaBright
+    name_colour: chalk.Chalk | Function = chalk.magentaBright
 
     name: String
+
+    log_function: Function = console.log
 
 
     constructor(name: String) {
@@ -36,7 +38,7 @@ export default class /* Logger */ {
         
         if (this.type_col_dict.hasOwnProperty(type as PropertyKey))
             type_colour = this.type_col_dict[type as keyof typeof this.type_col_dict]
-        
+            //type_colour = this[`${type}_colour`]
 
         const formatted_date = strftime(this.time_format, new Date())
 
@@ -45,7 +47,7 @@ export default class /* Logger */ {
         
         
 
-        console.log(
+        this.log_function(
             `${this.time_colour(formatted_date)} ` + 
             `${type_colour(type.toUpperCase())}${" ".repeat(5 - type.length + 4)}` +
             `${this.name_colour(this.name)} ` + message

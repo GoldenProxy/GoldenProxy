@@ -1,0 +1,6 @@
+{
+    "Name": "ExamplePlugin",
+    "ID": "dev.goldenproxy.exampleplugin",
+    "Version": "1.0",
+    "Main": "ExamplePlugin.golden.js::default"
+}
