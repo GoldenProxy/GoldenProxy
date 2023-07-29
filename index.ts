@@ -5,17 +5,19 @@ import {
 } from './src/types'
 import Config from './src/Config'
 import Plugins from './src/Plugins'
+import { CommandManager } from './src/Chat'
 
 import path from 'path'
 
 
 const log = new logger('Golden')
+const commands = new CommandManager()
 
 log.info('Starting Golden...')
 
 const config = new Config(__dirname + '/config.json')
-const proxy = new GoldenProxy(config, log)
-const plugins = new Plugins(log, config, proxy)
+const proxy = new GoldenProxy(config, log, commands)
+const plugins = new Plugins(log, config, proxy , commands)
 proxy.plugins = plugins
 
 process.stdout.write('> ');

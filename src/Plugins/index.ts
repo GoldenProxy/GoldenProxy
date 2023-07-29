@@ -3,7 +3,7 @@ import Logger from '../Logger'
 import Config from '../Config'
 import Events from '../Events'
 import GoldenProxy from '../proxy'
-import { ChatLogger } from '../Chat'
+import { ChatLogger, CommandManager } from '../Chat'
 
 import fs from 'fs'
 
@@ -21,7 +21,8 @@ export default class Plugins {
         module_raw: any,
         module?: any
     }[] = []
-    constructor(public logger: Logger, public config: Config, public proxy: GoldenProxy) {
+
+    constructor(public logger: Logger, public config: Config, public proxy: GoldenProxy, public commandsManager: CommandManager) {
         this.cwd = process.cwd()
         
         this.loadPlugins()
@@ -90,7 +91,12 @@ export default class Plugins {
                 /*api:*/ {
                     events: Events,
                     proxy: this.proxy,
-                    chatlog: new ChatLogger(plugin.name, write)
+                    chatlog: new ChatLogger(plugin.name, write),
+                    commands: {
+                        register: this.commandsManager.register_command.bind(this.commandsManager),
+                        unregister: this.commandsManager.unregister_command.bind(this.commandsManager),
+                        check: this.commandsManager.check_command.bind(this.commandsManager),
+                    }
                 }
             )
 

@@ -5,7 +5,8 @@ import Plugins from './Plugins'
 import { mcmotd, CLIENT_CHANNELS } from './consts'
 import { 
     colourify as Colourify,
-    ChatLogger
+    ChatLogger,
+    CommandManager
 } from './Chat'
 
 import mc from 'minecraft-protocol'
@@ -23,10 +24,12 @@ export default class GoldenProxy {
     client: mc.Client | null = null
     plugins: Plugins | null = null /* CAN NOT BE USED IN CONSTRUCTOR */
     chatlogger: ChatLogger | null = null
+    commandManager: CommandManager | null = null
 
-    constructor(config: Config, logger: LoggerType) {
+    constructor(config: Config, logger: LoggerType, commands: CommandManager) {
         this.config = config
         this.logger = logger
+        this.commandManager = commands
 
         this.server = mc.createServer({
             port: this.config.connection_port,
@@ -37,7 +40,23 @@ export default class GoldenProxy {
 
         this.server.on('listening', this.server$listening.bind(this))
         //this.server.on('login', this.server$login.bind(this))
-        this.server.on('login', (client: mc.Client) => this.server$login(client))        
+        this.server.on('login', (client: mc.Client) => this.server$login(client))     
+        
+        this.commandManager.register_command('.gldn', (args: string[]) => {
+            switch (args[0]) {
+                case 'plugins':
+                    this.chatlogger?.info(`Golden Plugins (${this.plugins?.plugins.length})`)
+                    for (const plugin of this.plugins!.plugins) {
+                        //this.client?.write("chat", { message: JSON.stringify({ text: `${plugin.name} - ${plugin.manifest.Version}`})})
+                        this.chatlogger?.small(`${plugin.name} - ${plugin.manifest.Version}`)
+                    }
+
+                    break;
+                default:
+                    this.chatlogger?.info(`Unknown command ${args[0]}`)
+                    break;
+            }
+        })
         
     }
 
@@ -135,23 +154,17 @@ export default class GoldenProxy {
         // this.logger.info(packetMeta.name + " " + JSON.stringify(packet))
 
         if (packetMeta.name == "chat") {
-            if (packet.message.startsWith(".gldn")) {
-
-                const args = packet.message.split(" ").slice(1)
-                
-                if (packet.message == ".gldn plugins") {
-                    
-                    //client.write("chat", { message: JSON.stringify({ text: "no help for u"})})
-
-                    for (const plugin of this.plugins!.plugins) {
-                        //this.client?.write("chat", { message: JSON.stringify({ text: `${plugin.name} - ${plugin.manifest.Version}`})})
-                        this.chatlogger?.info(`${plugin.name} - ${plugin.manifest.Version}`)
-                    }
-
-                    return;
-                }
-
+            const _args = packet.message.split(" ")
+            const cmd = _args[0]
+            const args = _args.slice(1)
+            
+            if (this.commandManager?.check_command(cmd)) {
+                this.commandManager?.execute_command(cmd, args, client)
+                return;
             }
+            
+            
+            
         }
 
         if(!this.disabledPackets.includes(packetMeta.name)) remoteClient.write(packetMeta.name, packet)
