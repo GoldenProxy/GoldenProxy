@@ -123,6 +123,11 @@ export default class GoldenProxy {
 
             this.client$packet(packet, packetMeta, buffer, fullBuffer, remoteClient, client)
         })
+
+        client.on('end', () => {
+            this.logger.warn(`${client.username} has left the server!`)
+            remoteClient.end()
+        })
     }
 
     remote$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, fullBuffer: Buffer, client: mc.Client) {

@@ -16,6 +16,8 @@ export class ChatLogger extends Logger {
         this.log_function(`&7> &r${msg}`)
     })
 
+    raw: Function
+
     
     constructor(name: String, write: Function) {
         super(name)
@@ -31,6 +33,11 @@ export class ChatLogger extends Logger {
             // console.log(data)
             this.write('chat', data)
         }
+
+        this.raw = (msg: Object) => {
+            this.write('chat', msg)
+        }
+
 
         
 
