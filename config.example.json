@@ -1,0 +1,8 @@
+{
+    "connection_port": 25565,
+    "connection_version": "1.8.9",
+    "server_host": "hypixel.net",
+    "server_port": 25565,
+    "server_version": "1.8.9",
+    "enable_example_plugin": false
+}
