@@ -3,7 +3,7 @@ import Logger from '../Logger'
 import Config from '../Config'
 import Events from '../Events'
 import GoldenProxy from '../proxy'
-import { ChatLogger, CommandManager } from '../Chat'
+import { ChatLogger, CommandManager, colourify } from '../Chat'
 
 import fs from 'fs'
 
@@ -96,7 +96,11 @@ export default class Plugins {
                         register: this.commandsManager.register_command.bind(this.commandsManager),
                         unregister: this.commandsManager.unregister_command.bind(this.commandsManager),
                         check: this.commandsManager.check_command.bind(this.commandsManager),
+                    },
+                    util: {
+                        colourify: colourify
                     }
+
                 }
             )
 

@@ -136,9 +136,6 @@ export default class GoldenProxy {
             this.full_packets.push(packet)
         }
 
-        if (packetMeta.name == "keep_alive") 
-            client.latency = Date.now() - packet.keepAliveId;
-
 
         if (packetMeta.name == "custom_payload") {
             if (CLIENT_CHANNELS.includes(packet.channel)) return;

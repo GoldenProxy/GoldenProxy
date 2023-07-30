@@ -9,3 +9,5 @@ node_modules/
 scripts/*.txt
 
 config.json
+
+plugins/GoldenStats/
