@@ -634,6 +634,7 @@ export type validConfig = {
     server_host: string,
     server_port: number,
     server_version: validMinecraftVersions,
+    enable_example_plugin: boolean
 }
 
 export const validConfigArray = [

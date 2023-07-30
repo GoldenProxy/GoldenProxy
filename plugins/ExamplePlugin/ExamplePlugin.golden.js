@@ -9,6 +9,8 @@ module.exports = class {
 
         this.chat = api.chatlog;
 
+        if (!config.enable_example_plugin) return;
+
         this.api.commands.register('/example', (args, client) => {
             this.chat.info('Example command ran! Args: ' + args.join(' '));
             this.chat.small('User: ' + client.username);
