@@ -4,6 +4,7 @@ import Config from '../Config'
 import Events from '../Events'
 import GoldenProxy from '../proxy'
 import { ChatLogger, CommandManager, colourify } from '../Chat'
+import { Config as PluginConfig } from './plugin_config'
 
 import fs from 'fs'
 
@@ -99,8 +100,8 @@ export default class Plugins {
                     },
                     util: {
                         colourify: colourify
-                    }
-
+                    },
+                    config: new PluginConfig(plugin.name, path.join(this.cwd, 'plugins', plugin.name), log)
                 }
             )
 

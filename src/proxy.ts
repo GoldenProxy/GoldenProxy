@@ -25,6 +25,7 @@ export default class GoldenProxy {
     plugins: Plugins | null = null /* CAN NOT BE USED IN CONSTRUCTOR */
     chatlogger: ChatLogger | null = null
     commandManager: CommandManager | null = null
+    remoteClient: mc.Client | null = null /* CAN NOT BE USED IN CONSTRUCTOR */
 
     constructor(config: Config, logger: LoggerType, commands: CommandManager) {
         this.config = config
@@ -98,6 +99,8 @@ export default class GoldenProxy {
             port: this.config.server_port,
             version: this.config.server_version,
         })
+
+        this.remoteClient = remoteClient
         
         // Remote client to server connection
         remoteClient.on('connect', () => {
@@ -120,6 +123,14 @@ export default class GoldenProxy {
             //if (!['transaction','flying','keep_alive'].includes(packetMeta.name)) this.logger.info(packetMeta.name);
             if (this.emit(packetMeta.name, "C2LS", packet, packetMeta, buffer, fullBuffer, remoteClient, client))
                 return;
+
+            
+            /*    console.log('\n--- START ---')
+            console.log(packetMeta.name + ' -> ')
+            console.log(packet)
+            console.log(buffer.toString() + ' - ' + buffer)
+            console.log(fullBuffer.toString() + ' - ' + fullBuffer)
+            console.log('--- END ---\n')*/
 
             this.client$packet(packet, packetMeta, buffer, fullBuffer, remoteClient, client)
         })
