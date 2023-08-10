@@ -16,7 +16,7 @@ GoldenProxy is a proxy server that allows you to modify your connection to a min
 ### Installation
 
 1. Install [Node.js](https://nodejs.org/en/) (version 18 or higher)
-2. Clone the repository
+2. Clone the repository (`git clone --recurse-submodules https://github.com/GoldenProxy/GoldenProxy.git`)
 3. Open a terminal in the repository folder and run `npm install`
 4. Copy `config.example.json` to `config.json` and edit it to your liking
 

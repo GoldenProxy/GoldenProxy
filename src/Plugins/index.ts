@@ -1,5 +1,5 @@
 import path from 'path'
-import Logger from '../Logger'
+import Logger from '../MultiLangLogger/typescript'
 import Config from '../Config'
 import Events from '../Events'
 import GoldenProxy from '../proxy'

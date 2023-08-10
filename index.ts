@@ -1,4 +1,4 @@
-import logger from './src/Logger'
+import logger from './src/MultiLangLogger/typescript'
 import GoldenProxy from './src/proxy'
 import {
     validMinecraftVersions

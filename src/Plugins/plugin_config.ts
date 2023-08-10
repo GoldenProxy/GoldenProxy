@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import LoggerType from '../Logger';
+import LoggerType from '../MultiLangLogger/typescript';
 
 export class Config {
     path: string;

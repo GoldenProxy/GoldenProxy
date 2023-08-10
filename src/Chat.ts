@@ -1,4 +1,4 @@
-import Logger from './Logger'
+import Logger from './MultiLangLogger/typescript'
 import { Client } from 'minecraft-protocol'
 
 export const colourify_motd = (string: string): string => {

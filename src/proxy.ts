@@ -1,4 +1,4 @@
-import LoggerType from './Logger'
+import LoggerType from './MultiLangLogger/typescript'
 import Config from './Config'
 import Events from './Events'
 import Plugins from './Plugins'
