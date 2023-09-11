@@ -6,10 +6,11 @@ import {
 import Config from './src/Config'
 import Plugins from './src/Plugins'
 import { CommandManager } from './src/Chat'
+import { GOLDENPROXY_ASCII } from './src/consts'
 
 import path from 'path'
 
-
+console.log(GOLDENPROXY_ASCII)
 const log = new logger('Golden')
 const commands = new CommandManager()
 
