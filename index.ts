@@ -11,6 +11,7 @@ import { GOLDENPROXY_ASCII } from './src/consts'
 import path from 'path'
 
 console.log(GOLDENPROXY_ASCII)
+
 const log = new logger('Golden')
 const commands = new CommandManager()
 

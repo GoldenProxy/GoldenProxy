@@ -38,10 +38,6 @@ export class ChatLogger extends Logger {
             this.write('chat', msg)
         }
 
-
-        
-
-
         this.time_colour = (x: string) => '&7' + x + '&r'
         this.info_colour = (x: string) => '&9' + x + '&r'
         this.warn_colour = (x: string) => '&e' + x + '&r'
@@ -66,6 +62,24 @@ export class ChatLogger extends Logger {
             this.success_colour('test'),
             this.name_colour('test')
         )*/
+    }
+}
+
+export class TimelessChatLogger extends ChatLogger {
+    time_format: String = ''
+    
+    constructor(name: String, write: Function) {
+        super(name, write)
+
+        this.log_function = (msg: string) => {
+            let data = {
+                message: JSON.stringify({
+                    text: colourify(msg).trim().replace(/^§7§r /, '')
+                })
+            }
+            
+            this.write('chat', data)
+        }
     }
 }
 

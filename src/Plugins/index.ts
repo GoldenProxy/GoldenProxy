@@ -3,7 +3,7 @@ import Logger from '../MultiLangLogger/typescript'
 import Config from '../Config'
 import Events from '../Events'
 import GoldenProxy from '../proxy'
-import { ChatLogger, CommandManager, colourify } from '../Chat'
+import { ChatLogger, TimelessChatLogger, CommandManager, colourify } from '../Chat'
 import { Config as PluginConfig } from './plugin_config'
 
 import fs from 'fs'
@@ -93,6 +93,7 @@ export default class Plugins {
                     events: Events,
                     proxy: this.proxy,
                     chatlog: new ChatLogger(plugin.name, write),
+                    timelesschatlog: new TimelessChatLogger(plugin.name, write),
                     commands: {
                         register: this.commandsManager.register_command.bind(this.commandsManager),
                         unregister: this.commandsManager.unregister_command.bind(this.commandsManager),
