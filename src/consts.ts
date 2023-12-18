@@ -13,6 +13,7 @@ export const CLIENT_CHANNELS = [
     "labymod3:ccp",
     "labymod3:shadow",
     "labymod3:lava_update", //TODO: figure out more for labymod
+    "lunar:apollo",
 ]
 
 //https://www.asciiart.eu/image-to-ascii
