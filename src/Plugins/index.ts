@@ -85,8 +85,8 @@ export default class Plugins {
             let write = (msg: string, params: any) => {
                 this.proxy.client?.write.bind(this.proxy.client)(msg, params)
             }
-
-            const module = new plugin.module_raw(
+            if (!plugin.module_raw) return log.error('FATAL: Failed to resolve module for ' + plugin.name)
+            const module = new (plugin.module_raw?.default ?? plugin.module_raw)(
                 log,
                 this.config,
                 /*api:*/ {
