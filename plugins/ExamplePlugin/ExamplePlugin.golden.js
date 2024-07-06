@@ -1,6 +1,15 @@
+/// <reference path="../../types/api.d.ts" />
+
 const fs = require('fs');
 
 module.exports = class {
+    /**
+     * 
+     * @param {import('../../types/api.d.ts').Logger} logger 
+     * @param {import('../../types/api.d.ts').PluginConfig} config 
+     * @param {import('../../types/api.d.ts').API} api 
+     * @returns 
+     */
     constructor(logger, config, api) {
         console.log('ExamplePlugin loaded!');
         this.logger = logger;

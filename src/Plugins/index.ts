@@ -102,7 +102,9 @@ export default class Plugins {
                     util: {
                         colourify: colourify
                     },
-                    config: new PluginConfig(plugin.name, path.join(this.cwd, 'plugins', plugin.name), log)
+                    config: new PluginConfig(plugin.name, path.join(this.cwd, 'plugins', plugin.name), log),
+                    plugins: this.plugins.map(plugin => plugin.manifest),
+                    
                 }
             )
 
