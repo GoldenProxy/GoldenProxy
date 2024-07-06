@@ -85,8 +85,8 @@ export default class Plugins {
             let write = (msg: string, params: any) => {
                 this.proxy.client?.write.bind(this.proxy.client)(msg, params)
             }
-            const construct = plugin.manifest.Main.includes('::') ? plugin.module_raw[plugin.manifest.Main.split('::')[1]] : plugin.module_raw
-            const module = new construct(
+
+            const module = new plugin.module_raw(
                 log,
                 this.config,
                 /*api:*/ {
