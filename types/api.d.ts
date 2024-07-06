@@ -115,8 +115,12 @@ export declare class GoldenProxy {
 
     config: Config
     logger: Logger
-    client: mc.Client
-    plugins: Plugins
+    client: mc.Client | null
+    plugins: Plugins | null
+    chatlogger: ChatLogger | null
+    commandManager: CommandManager | null
+    remoteClient: mc.Client | null
+
 
     loadPlugins(): void
     initPlugins(): void
