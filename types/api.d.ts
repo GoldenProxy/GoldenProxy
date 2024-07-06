@@ -151,6 +151,6 @@ export type API = {
     plugins: _pluginManifest[]
 }
 
-export interface GoldenProxyPlugin {
+export declare class GoldenProxyPlugin {
     constructor(logger: Logger, config: Config, api: API)
 }
