@@ -102,6 +102,9 @@ export declare class Plugins {
 
     constructor(logger: Logger, config: Config,
         proxy: GoldenProxy, commandsManager: CommandManager)
+
+    loadPlugins(): void
+    initPlugins(): void
 }
 
 export type colourify = (string: string) => string
@@ -120,10 +123,19 @@ export declare class GoldenProxy {
     chatlogger: ChatLogger | null
     commandManager: CommandManager | null
     remoteClient: mc.Client | null
+    loginListeners: ((username: string) => void)[]
 
-
-    loadPlugins(): void
-    initPlugins(): void
+    constructor(config: Config, logger: Logger, commands: CommandManager)
+    emit(name: string, chan: string, ...args: any): boolean | void
+    
+    onLogin(callback: (username: string) => void): void
+    
+    server$listening(): void
+    server$login(client: mc.Client): void
+    remote$packet(packet: any, packetMeta: mc.PacketMeta, 
+        buffer: Buffer, fullBuffer: Buffer, client: mc.Client): void
+    client$packet(packet: any, packetMeta: mc.PacketMeta, buffer: Buffer, 
+        fullBuffer: Buffer, remoteClient: mc.Client, client: mc.Client): void
 }
 
 export declare class PluginConfig {

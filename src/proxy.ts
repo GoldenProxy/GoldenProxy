@@ -27,6 +27,8 @@ export default class GoldenProxy {
     commandManager: CommandManager | null = null
     remoteClient: mc.Client | null = null /* CAN NOT BE USED IN CONSTRUCTOR */
 
+    loginListeners: ((username: string) => void)[] = []
+
     constructor(config: Config, logger: LoggerType, commands: CommandManager) {
         this.config = config
         this.logger = logger
@@ -72,18 +74,14 @@ export default class GoldenProxy {
         }, ...args)
 
         return returnData;
-
-        
-
-
-
-
-
-
     }
 
     server$listening() {
         this.logger.info(`Golden has started on 127.0.0.1:${this.config.connection_port}`)
+    }
+
+    onLogin(callback: (username: string) => void) {
+        this.loginListeners.push(callback)
     }
 
     server$login(client: mc.Client) {
@@ -91,6 +89,7 @@ export default class GoldenProxy {
         this.chatlogger = new ChatLogger('GoldenProxy', client.write.bind(client))
 
         this.logger.success(`${client.username} has joined the server!`)
+        this.loginListeners.forEach(listener => listener(client.username))
 
         var remoteClient = mc.createClient({
             auth: 'microsoft',
