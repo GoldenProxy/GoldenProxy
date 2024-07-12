@@ -31,7 +31,8 @@
     "minecraft-protocol": "^1.43.1",
     "msal-code": "^1.0.0",
     "node-fetch": "2.6",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/node": "^20.4.2",
