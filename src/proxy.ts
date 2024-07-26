@@ -89,7 +89,6 @@ export default class GoldenProxy {
         this.chatlogger = new ChatLogger('GoldenProxy', client.write.bind(client))
 
         this.logger.success(`${client.username} has joined the server!`)
-        this.loginListeners.forEach(listener => listener(client.username))
 
         var remoteClient = mc.createClient({
             auth: 'microsoft',
@@ -103,9 +102,11 @@ export default class GoldenProxy {
         
         // Remote client to server connection
         remoteClient.on('connect', () => {
-            this.emit('connect', "R2RS", client, remoteClient)    
+            this.emit('connect', "R2RS", client, remoteClient)
             
             this.logger.success(`Connected to ${this.config.server_host}:${this.config.server_port}`)
+
+            this.loginListeners.forEach(listener => listener(client.username))
         })
 
         // Server to remote client packet (+remote > local packet)
