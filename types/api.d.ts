@@ -160,7 +160,7 @@ export type API = {
         unregister: (command: string) => void,
         check: (command: string) => boolean,
     },
-    until: {
+    util: {
         colourify: colourify
     },
     config: PluginConfig,

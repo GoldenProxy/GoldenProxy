@@ -13,3 +13,5 @@ config.json
 plugins/*
 plugins/*/*.config.json
 !plugins/ExamplePlugin/*.golden.*
+
+out*.txt
