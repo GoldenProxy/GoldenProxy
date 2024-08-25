@@ -147,7 +147,7 @@ export declare class PluginConfig {
     get(key: any): any | null
     set(key: any, value: any): void
 
-    save(conf: Object): void
+    save(conf?: Object): void
 }
 
 export type API = {
